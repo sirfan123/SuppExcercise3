@@ -17,7 +17,7 @@
 
 
 typedef struct tn {
-    char name[4];
+    char *name;
     struct tn*    left;
     struct tn*    right;
 } treeNode;
@@ -26,10 +26,10 @@ typedef struct tn {
 treeNode* NewTreeNode(const char* name, treeNode* left, treeNode* right)
 {
     treeNode*    new;
-
+    
     new = (treeNode*)malloc(sizeof(treeNode));
-
-    strcpy(new->name, name);
+    new->name = strdup(name); 
+    //strcpy(new->name, name);
     new->left = left;
     new->right = right;
 
@@ -75,7 +75,7 @@ void DeleteTree(treeNode* tree)
         DeleteTree(tree->left);
         DeleteTree(tree->right);
     }
-
+    free(tree->name);
     free(tree);
 } /* DeleteTree() */
 
